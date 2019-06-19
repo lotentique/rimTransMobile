@@ -1,0 +1,13 @@
+.error-messages{
+    font-size: 0.8em;
+    color: red;
+    text-align: center;
+}
+:host {
+    ion-content {
+        --background:skyblue;
+    }
+}
+ion-toolbar{
+    --background: rgb(120, 120, 190);
+}

@@ -1,0 +1,17 @@
+:host {
+    ion-content {
+        --background:skyblue;
+    }
+}
+ion-toolbar{
+    --background: rgb(120, 120, 190);
+}
+ion-card-content{
+    text-align: center;
+    font-size: 30px;
+    
+}
+ion-card{
+    text-align: center;
+    font-size: 30px;
+}

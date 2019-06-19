@@ -1,0 +1,31 @@
+ion-toolbar{
+    --background: rgb(120, 120, 190);
+}
+
+:host {
+    ion-content {
+        --background:skyblue;
+    }
+    
+}
+.slogan h1{
+	
+	
+	font-style: oblique;
+	text-shadow: 1px 1px 1px black;
+	color:gray;
+	font-size: 7vw;
+	
+    opacity: .8;
+}
+.slogan h1 span{
+	font-style: normal;
+	color: Slateblue;
+	border-bottom: 1px solid Dodgerblue;
+    box-shadow: 1px 2px 6px 2px LightGray;
+    
+}
+.slogan{
+    text-align: center;
+    padding-bottom: 25px;
+}

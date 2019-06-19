@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" color="light" defaultHref="dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title  color="light">resultat</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card *ngIf="benef">
+    <ion-card-header>
+      <ion-card-title>
+        code transfert : {{ trans.code_transfer }} status: <b *ngIf="trans.status">Retiré</b><b
+          *ngIf="!trans.status">Encours</b>
+         <br> montant: {{ trans.montant }}
+      </ion-card-title>
+      <ion-card-subtitle>
+        Béneficiaire
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        Nom: {{ benef.nom }}
+      </ion-item>
+      <ion-item>
+        Prenom: {{ benef.prenom }}
+      </ion-item>
+      <ion-item>
+        Tel: {{ benef.tel }}
+      </ion-item>
+      <ion-item>
+        Email: {{ benef.email }}
+      </ion-item>
+      <ion-item *ngIf="!trans.status && !(trans.effectue_par == user['id'])">
+        <form [formGroup]="nniForm" >
+          <ion-item>
+            <ion-label position="floating">NNI</ion-label>
+            <ion-input formControlName="nni" type="number" ></ion-input>
+          </ion-item>
+          <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.nni">
+              <div class="error-messages"
+                *ngIf="nniForm.get('nni').hasError(error.type) && (nniForm.get('nni').dirty || nniForm.get('nni').touched)">
+                {{error.message }}
+              </div>
+            </ng-container>
+
+          </div>
+          <ion-input formControlName="id_trans" type="hidden"></ion-input>
+          <ion-button (click)="retrai()" [disabled]="!nniForm.valid" shape="round" expand="block" color="primary">
+            Valider</ion-button>
+        </form>
+      </ion-item>
+      <ion-item *ngIf="trans.status">
+        provenent de : {{ villeFrom.nom }}
+      </ion-item>
+      <ion-item *ngIf="trans.status">
+        recuperer le : {{ trans.date_recuperation }}
+      </ion-item>
+      <ion-item *ngIf="trans.status">
+        par : {{ trans.nni_beneficiaire }}
+      </ion-item>
+      <ion-item *ngIf="trans.status">
+        Dans (point/Cartie) : {{ pnt1.nom }} / {{ pnt1.cartier }}
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  
+</ion-content>

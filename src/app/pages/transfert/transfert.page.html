@@ -1,0 +1,337 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" color="light" defaultHref="dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title  color="light">Transfert</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="!verif">
+    <form [formGroup]="verifTelForm">
+      <ion-item>
+        <ion-label position="floating">Tel Béneficiaiere</ion-label>
+        <ion-input formControlName="tel_benef" type="number"></ion-input>
+      </ion-item>
+      <div class="error-messages">
+        <ng-container *ngFor="let error of error_messages.tel_benef">
+          <div class="error-messages" *ngIf="verifTelForm.get('tel_benef').hasError(error.type) && (verifTelForm.get('tel_benef').dirty ||
+          verifTelForm.get('tel_benef').touched)">
+            {{error.message }}
+          </div>
+        </ng-container>
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Tel Expediteur</ion-label>
+        <ion-input formControlName="tel_expe" type="number"></ion-input>
+      </ion-item>
+      <div class="error-messages">
+        <ng-container *ngFor="let error of error_messages.tel_expe">
+          <div class="error-messages" *ngIf="verifTelForm.get('tel_expe').hasError(error.type) && (verifTelForm.get('tel_expe').dirty ||
+           verifTelForm.get('tel_expe').touched)">
+            {{error.message }}
+          </div>
+        </ng-container>
+      </div>
+      <ion-button (click)="verifTel()" [disabled]="!verifTelForm.valid" shape="round" expand="block" color="primary">
+        Valider</ion-button>
+    </form>
+  </div>
+  <div *ngIf="!verifCode && verif">
+    <form [formGroup]="transfertForm">
+      <fieldset *ngIf="expe != undefined">
+        <legend>Expediteur</legend>
+        <ion-item>
+          <ion-label position="floating">nom</ion-label>
+          <ion-input formControlName="nom_expe" type="text" value="{{ expe.nom }}"></ion-input>
+        </ion-item>
+         <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.nom_expe">
+              <div class="error-messages"
+                *ngIf="transfertForm.get('nom_expe').hasError(error.type) && (transfertForm.get('nom_expe').dirty || transfertForm.get('nom_expe').touched)">
+                {{error.message }}
+              </div>
+            </ng-container>
+
+          </div>
+        <ion-item>
+          <ion-label position="floating">prenom</ion-label>
+          <ion-input formControlName="prenom_expe" type="text" value="{{ expe.prenom }}"></ion-input>
+        </ion-item>
+         <div class="error-messages">
+           <ng-container *ngFor="let error of error_messages.prenom_expe">
+             <div class="error-messages"
+               *ngIf="transfertForm.get('prenom_expe').hasError(error.type) && (transfertForm.get('prenom_expe').dirty || transfertForm.get('prenom_expe').touched)">
+               {{error.message }}
+             </div>
+           </ng-container>
+
+         </div>
+        <ion-item>
+          <ion-label position="floating">Tel</ion-label>
+          <ion-input formControlName="tel_expe" type="number" value="{{ expe.tel }}"></ion-input>
+        </ion-item>
+         <div class="error-messages">
+           <ng-container *ngFor="let error of error_messages.tel_expe">
+             <div class="error-messages"
+               *ngIf="transfertForm.get('tel_expe').hasError(error.type) && (transfertForm.get('tel_expe').dirty || transfertForm.get('tel_expe').touched)">
+               {{error.message }}
+             </div>
+           </ng-container>
+
+         </div>
+        <ion-item>
+          <ion-label position="floating">NNI</ion-label>
+          <ion-input formControlName="nni_expe" type="number" value="{{ expe.nni }}"></ion-input>
+        </ion-item>
+        <div class="error-messages">
+          <ng-container *ngFor="let error of error_messages.nni_expe">
+            <div class="error-messages"
+              *ngIf="transfertForm.get('nni_expe').hasError(error.type) && (transfertForm.get('nni_expe').dirty || transfertForm.get('nni_expe').touched)">
+              {{error.message }}
+            </div>
+          </ng-container>
+
+        </div>
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input formControlName="email_expe" type="email" value="{{ expe.email }}"></ion-input>
+        </ion-item>
+        <div class="error-messages">
+          <ng-container *ngFor="let error of error_messages.email_expe">
+            <div class="error-messages"
+              *ngIf="transfertForm.get('email_expe').hasError(error.type) && (transfertForm.get('email_expe').dirty || transfertForm.get('email_expe').touched)">
+              {{error.message }}
+            </div>
+          </ng-container>
+
+        </div>
+      </fieldset>
+      <fieldset *ngIf="expe == undefined">
+        <legend>Expediteur</legend>
+        <ion-item>
+          <ion-label position="floating">nom</ion-label>
+          <ion-input formControlName="nom_expe" type="text"></ion-input>
+        </ion-item>
+        <div class="error-messages">
+          <ng-container *ngFor="let error of error_messages.nom_expe">
+            <div class="error-messages"
+              *ngIf="transfertForm.get('nom_expe').hasError(error.type) && (transfertForm.get('nom_expe').dirty || transfertForm.get('nom_expe').touched)">
+              {{error.message }}
+            </div>
+          </ng-container>
+
+        </div>
+        <ion-item>
+          <ion-label position="floating">prenom</ion-label>
+          <ion-input formControlName="prenom_expe" type="text"></ion-input>
+        </ion-item>
+        <div class="error-messages">
+          <ng-container *ngFor="let error of error_messages.prenom_expe">
+            <div class="error-messages"
+              *ngIf="transfertForm.get('prenom_expe').hasError(error.type) && (transfertForm.get('prenom_expe').dirty || transfertForm.get('prenom_expe').touched)">
+              {{error.message }}
+            </div>
+          </ng-container>
+
+        </div>
+        <ion-item>
+          <ion-label position="floating">Tel</ion-label>
+          <ion-input formControlName="tel_expe" type="number" value="{{ tel_expe }}"></ion-input>
+        </ion-item>
+         <div class="error-messages">
+           <ng-container *ngFor="let error of error_messages.tel_expe">
+             <div class="error-messages"
+               *ngIf="transfertForm.get('tel_expe').hasError(error.type) && (transfertForm.get('tel_expe').dirty || transfertForm.get('tel_expe').touched)">
+               {{error.message }}
+             </div>
+           </ng-container>
+
+         </div>
+        <ion-item>
+          <ion-label position="floating">NNI</ion-label>
+          <ion-input formControlName="nni_expe" type="number"></ion-input>
+        </ion-item>
+        <div class="error-messages">
+          <ng-container *ngFor="let error of error_messages.nni_expe">
+            <div class="error-messages"
+              *ngIf="transfertForm.get('nni_expe').hasError(error.type) && (transfertForm.get('nni_expe').dirty || transfertForm.get('nni_expe').touched)">
+              {{error.message }}
+            </div>
+          </ng-container>
+
+        </div>
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input formControlName="email_expe" type="email"></ion-input>
+        </ion-item>
+        <div class="error-messages">
+          <ng-container *ngFor="let error of error_messages.email_expe">
+            <div class="error-messages"
+              *ngIf="transfertForm.get('email_expe').hasError(error.type) && (transfertForm.get('email_expe').dirty || transfertForm.get('email_expe').touched)">
+              {{error.message }}
+            </div>
+          </ng-container>
+
+        </div>
+      </fieldset>
+      <fieldset *ngIf="benef != undefined">
+        <legend>Beneficiaire</legend>
+        <ion-item>
+          <ion-label position="floating">nom</ion-label>
+          <ion-input formControlName="nom_benef" type="text" value="{{ benef.nom }}"></ion-input>
+        </ion-item>
+         <div class="error-messages">
+           <ng-container *ngFor="let error of error_messages.nom_benef">
+             <div class="error-messages"
+               *ngIf="transfertForm.get('nom_benef').hasError(error.type) && (transfertForm.get('nom_benef').dirty || transfertForm.get('nom_benef').touched)">
+               {{error.message }}
+             </div>
+           </ng-container>
+
+         </div>
+        <ion-item>
+          <ion-label position="floating">prenom</ion-label>
+          <ion-input formControlName="prenom_benef" type="text" value="{{ benef.prenom }}"></ion-input>
+        </ion-item>
+        <div class="error-messages">
+          <ng-container *ngFor="let error of error_messages.prenom_benef">
+            <div class="error-messages"
+              *ngIf="transfertForm.get('prenom_benef').hasError(error.type) && (transfertForm.get('prenom_benef').dirty || transfertForm.get('prenom_benef').touched)">
+              {{error.message }}
+            </div>
+          </ng-container>
+
+        </div>
+        <ion-item>
+          <ion-label position="floating">Tel</ion-label>
+          <ion-input formControlName="tel_benef" type="number" value="{{ benef.tel }}"></ion-input>
+        </ion-item>
+        <div class="error-messages">
+          <ng-container *ngFor="let error of error_messages.tel_benef">
+            <div class="error-messages"
+              *ngIf="transfertForm.get('tel_benef').hasError(error.type) && (transfertForm.get('tel_benef').dirty || transfertForm.get('tel_benef').touched)">
+              {{error.message }}
+            </div>
+          </ng-container>
+
+        </div>
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input formControlName="email_benef" type="email" value="{{ benef.email }}"></ion-input>
+        </ion-item>
+         <div class="error-messages">
+           <ng-container *ngFor="let error of error_messages.email_benef">
+             <div class="error-messages"
+               *ngIf="transfertForm.get('email_benef').hasError(error.type) && (transfertForm.get('email_benef').dirty || transfertForm.get('email_benef').touched)">
+               {{error.message }}
+             </div>
+           </ng-container>
+
+         </div>
+      </fieldset>
+      <fieldset *ngIf="benef == undefined">
+        <legend>Beneficiaire</legend>
+        <ion-item>
+          <ion-label position="floating">nom</ion-label>
+          <ion-input formControlName="nom_benef" type="text" ></ion-input>
+        </ion-item>
+         <div class="error-messages">
+           <ng-container *ngFor="let error of error_messages.nom_benef">
+             <div class="error-messages"
+               *ngIf="transfertForm.get('nom_benef').hasError(error.type) && (transfertForm.get('nom_benef').dirty || transfertForm.get('nom_benef').touched)">
+               {{error.message }}
+             </div>
+           </ng-container>
+
+         </div>
+        <ion-item>
+          <ion-label position="floating">prenom</ion-label>
+          <ion-input formControlName="prenom_benef" type="text"></ion-input>
+        </ion-item>
+        <div class="error-messages">
+          <ng-container *ngFor="let error of error_messages.prenom_benef">
+            <div class="error-messages"
+              *ngIf="transfertForm.get('prenom_benef').hasError(error.type) && (transfertForm.get('prenom_benef').dirty || transfertForm.get('prenom_benef').touched)">
+              {{error.message }}
+            </div>
+          </ng-container>
+
+        </div>
+        <ion-item>
+          <ion-label position="floating">Tel</ion-label>
+          <ion-input formControlName="tel_benef" type="number" value="{{ tel_benef }}"></ion-input>
+        </ion-item>
+        <div class="error-messages">
+          <ng-container *ngFor="let error of error_messages.tel_benef">
+            <div class="error-messages"
+              *ngIf="transfertForm.get('tel_benef').hasError(error.type) && (transfertForm.get('tel_benef').dirty || transfertForm.get('tel_benef').touched)">
+              {{error.message }}
+            </div>
+          </ng-container>
+
+        </div>
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input formControlName="email_benef" type="email"></ion-input>
+        </ion-item>
+        <div class="error-messages">
+          <ng-container *ngFor="let error of error_messages.email_benef">
+            <div class="error-messages"
+              *ngIf="transfertForm.get('email_benef').hasError(error.type) && (transfertForm.get('email_benef').dirty || transfertForm.get('email_benef').touched)">
+              {{error.message }}
+            </div>
+          </ng-container>
+
+        </div>
+      </fieldset>
+      <fieldset>
+        <ion-list>
+          <ion-item>
+            <ion-label>Ville</ion-label>
+            <ion-select formControlName="ville" aria-selected="true">
+              <ion-select-option *ngFor="let ville of villes" value="{{ ville.id_ville }}">{{ ville.nom }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+        <div class="error-messages">
+          <ng-container *ngFor="let error of error_messages.ville">
+            <div class="error-messages"
+              *ngIf="transfertForm.get('ville').hasError(error.type) && (transfertForm.get('ville').dirty || transfertForm.get('ville').touched)">
+              {{error.message }}
+            </div>
+          </ng-container>
+
+        </div>
+        <ion-item>
+          <ion-label position="floating">montant</ion-label>
+          <ion-input formControlName="montant" type="number"></ion-input>
+        </ion-item>
+        <div class="error-messages">
+          <ng-container *ngFor="let error of error_messages.montant">
+            <div class="error-messages"
+              *ngIf="transfertForm.get('montant').hasError(error.type) && (transfertForm.get('montant').dirty || transfertForm.get('montant').touched)">
+              {{error.message }}
+            </div>
+          </ng-container>
+
+        </div>
+      </fieldset>
+      <ion-button (click)="transfert(transfertForm)" shape="round"  expand="block"
+        color="primary">
+        Valider
+      </ion-button>
+    </form>
+  </div>
+
+  <ion-card *ngIf="verifCode">
+    <ion-card-content>
+      <ion-item>Tarif : {{ tarif }} UM</ion-item>
+      <ion-item>Code transfert : {{ code_transfert }}</ion-item>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

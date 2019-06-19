@@ -1,0 +1,7 @@
+{
+  "name": "rimTransMobile",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

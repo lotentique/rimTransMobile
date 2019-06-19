@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar >
+      <ion-title  color="light">connection</ion-title>
+    <ion-button slot="end"  (click)="dismissLogin()">x</ion-button>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <div padding-horizontal text-center class="animated fadeInDown">
+        <div class="logo"></div>
+        <h4 no-margin>
+          <ion-text color="light" class="fw700">
+            RimTrans
+          </ion-text>
+          
+        </h4>
+        <img src="/assets/logo.png" height="150"  >
+      </div>
+  <form #form="ngForm" (ngSubmit)="login(form)" method="post" >
+    <ion-item  >
+        <ion-label   position="floating">
+            <ion-icon name="contact" item-start></ion-icon>
+            Nom D'utilisateur
+          </ion-label>
+     
+      <ion-input  ngModel type="text" name="login" ></ion-input>
+    </ion-item>
+   
+  
+    <ion-item  >
+      <ion-label position="floating">
+        <ion-icon name="lock" item-start></ion-icon>
+        mot de passe
+      </ion-label>
+      <ion-input  ngModel type="password"  name="password"></ion-input>
+    </ion-item>
+    <p></p>
+  
+    
+  
+    <ion-button type="submit" expand="block" fill="outline" color="dark">se connecter</ion-button>
+  </form>
+</ion-content>
+  
